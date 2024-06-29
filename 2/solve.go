@@ -1,9 +1,9 @@
 package main
 
 import (
+	"adventOfCode/utils"
 	"fmt"
 	"strings"
-	"adventOfCode/utils"
 )
 
 func main() {
@@ -24,7 +24,7 @@ func parseLineInfo(line string) (int, map[string]int) {
 	_, err := fmt.Sscanf(parts[0], "Game %d", &gameNumber)
 
 	if err != nil {
-		return 0, nil
+		return 0, cubesCount
 	}
 
 	for _, combination := range strings.Split(parts[1], ";") {
