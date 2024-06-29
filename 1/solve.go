@@ -44,8 +44,6 @@ func findNumberInLine(line string) int {
 	if len(numbers) == 0 {
 		return 0
 	}
-	fmt.Println(line)
-	fmt.Println(numbers)
 
 	stringNumber := numbers[0] + numbers[len(numbers)-1]
 
