@@ -1,40 +1,11 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"path/filepath"
 	"regexp"
 	"strconv"
+	"adventOfCode/utils"
 )
-
-func getTextLines() ([]string, error) {
-	relativePath := "1/data.txt"
-
-	absolutePath, err := filepath.Abs(relativePath)
-
-	if err != nil {
-		return nil, err
-	}
-
-	file, err := os.Open(absolutePath)
-
-	if err != nil {
-		return nil, err
-	}
-
-	defer file.Close()
-
-	var lines []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		lines = append(lines, line)
-	}
-
-	return lines, nil
-}
 
 func findNumberInLine(line string) int {
 
@@ -62,7 +33,7 @@ func main() {
 }
 
 func solve() int {
-	lines, err := getTextLines()
+	lines, err := utils.GetTextLines("1/data.txt")
 
 	if err != nil {
 		return 0
