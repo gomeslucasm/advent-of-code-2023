@@ -1,10 +1,10 @@
 package main
 
 import (
+	"adventOfCode/utils"
 	"fmt"
 	"regexp"
 	"strconv"
-	"adventOfCode/utils"
 )
 
 func findNumberInLine(line string) int {
@@ -33,7 +33,7 @@ func main() {
 }
 
 func solve() int {
-	lines, err := utils.GetTextLines("1/data.txt")
+	lines, err := utils.GetTextLines("challenge-1/1/data.txt")
 
 	if err != nil {
 		return 0
