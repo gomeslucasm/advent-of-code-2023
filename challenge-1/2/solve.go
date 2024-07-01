@@ -3,20 +3,12 @@ package main
 import (
 	"adventOfCode/utils"
 	"fmt"
-	"regexp"
+	"sort"
 	"strconv"
+	"strings"
 )
 
 func findNumberInLine(line string) int {
-
-	re := regexp.MustCompile(`(one|two|three|four|five|six|seven|eight|nine|\d)`)
-	numbers := re.FindAllString(line, -1)
-
-	if len(numbers) == 0 {
-
-		return 0
-	}
-
 	numbersMap := map[string]string{
 		"one":   "1",
 		"two":   "2",
@@ -38,9 +30,27 @@ func findNumberInLine(line string) int {
 		"9":     "9",
 	}
 
-	stringNumber := numbersMap[numbers[0]] + numbersMap[numbers[len(numbers)-1]]
+	substringsMap := make(map[int]string)
 
-	fmt.Println("numbers = ", numbers, " | string number = ", stringNumber, " | line = ", line)
+	for key := range numbersMap {
+		index := strings.Index(line, key)
+		if index != -1 {
+			substringsMap[index] = key
+		}
+	}
+
+	if len(substringsMap) == 0 {
+		return 0
+	}
+
+	keys := make([]int, 0, len(substringsMap))
+	for k := range substringsMap {
+		keys = append(keys, k)
+	}
+
+	sort.Ints(keys)
+
+	stringNumber := numbersMap[substringsMap[keys[0]]] + numbersMap[substringsMap[keys[len(keys)-1]]]
 
 	number, err := strconv.Atoi(stringNumber)
 
@@ -63,13 +73,11 @@ func solve() int {
 		return 0
 	}
 
-	var calibration int = 0
+	calibration := 0
 
 	for _, line := range lines {
-		calibration = calibration + findNumberInLine(line)
+		calibration += findNumberInLine(line)
 	}
-
-	/* fmt.Println("calibValues = ", calibValues) */
 
 	return calibration
 }
