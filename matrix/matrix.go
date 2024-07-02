@@ -1,6 +1,7 @@
 package matrix
 
 import (
+	"slices"
 	"sync"
 )
 
@@ -91,7 +92,7 @@ func ListMatrixPointsByType(_type string) []MatrixPoint {
 	return values
 }
 
-func (matrixElement MatrixPoint) FindNeighbors() []MatrixPoint {
+func (matrixElement MatrixPoint) FindNeighborPoints() []MatrixPoint {
 	directions := [8][2]int{
 		{-1, 0},
 		{1, 0},
@@ -114,4 +115,18 @@ func (matrixElement MatrixPoint) FindNeighbors() []MatrixPoint {
 	}
 
 	return neighbors
+}
+
+func (matrixPoint MatrixPoint) FindNeighborElements() []MatrixElement {
+
+	uniqNeighbors := make([]MatrixElement, 0)
+
+	for _, n := range matrixPoint.FindNeighborPoints() {
+
+		if !slices.Contains(uniqNeighbors, n.Element) {
+			uniqNeighbors = append(uniqNeighbors, n.Element)
+		}
+
+	}
+	return uniqNeighbors
 }

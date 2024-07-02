@@ -5,7 +5,6 @@ import (
 	"adventOfCode/utils"
 	"fmt"
 	"regexp"
-	"slices"
 	"strconv"
 )
 
@@ -61,20 +60,12 @@ func solve() int {
 
 	for _, v := range asteriskMatrixElements {
 
-		uniqNeighbors := make([]matrix.MatrixElement, 0)
-
-		for _, n := range v.FindNeighbors() {
-
-			/* To not save repeated Neighbors */
-			if !slices.Contains(uniqNeighbors, n.Element) {
-				uniqNeighbors = append(uniqNeighbors, n.Element)
-			}
-		}
+		neighbors := v.FindNeighborElements()
 
 		mult := 1
 
-		if len(uniqNeighbors) > 1 {
-			for _, el := range uniqNeighbors {
+		if len(neighbors) > 1 {
+			for _, el := range neighbors {
 				switch v := el.Value.(type) {
 				case int:
 					mult = mult * v
